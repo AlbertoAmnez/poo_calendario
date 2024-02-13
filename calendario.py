@@ -24,3 +24,39 @@ class Dia:
         
         if self.dia < 1 or self.dia > dias_por_mes[self.mes]:
             raise ValueError(f"El mes {self.mes} del año {self.anyo} no tiene {self.dia} dias")
+    
+    def calcular_dia_semana(self):
+        mes_nuevo = self.mes
+        anyo_nuevo = self.anyo
+        if self.mes == 1 or self.mes == 2:
+            mes_nuevo += 12
+            anyo_nuevo -= 1
+
+        A = anyo_nuevo % 100
+        B = anyo_nuevo // 100
+        C = 2 - B + B // 4
+        D = A // 4
+        E = 13 * (mes_nuevo + 1) // 5
+        F = A + C + D + E + self.dia
+
+        return F % 7
+    
+
+
+#Error porque mes de abril no tiene 31 dias.
+try:
+    d = Dia(1970, 4, 31)
+except ValueError as date:
+    print(date) 
+
+'''
+
+Devuelve dia de la semana
+0 = sábado, 1 = domingo, 2 = lunes, 3 = martes, 4 = miercoles, 5 = jueves, 6 = viernes
+'''
+
+try:
+    d = Dia(1970, 4, 8)
+    print(f"Día de la semana: {d.dia_semana}")  
+except ValueError as date:
+    print(date)
